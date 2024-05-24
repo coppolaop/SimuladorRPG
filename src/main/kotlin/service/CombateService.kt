@@ -8,11 +8,12 @@ import com.coppolaop.entity.classes.Clerigo
  * Reúne as principais funcionalidades de combate,
  * separando Personagens do Jogador e Personagens do Mestre
  */
-class CombateService {
+class CombateService() {
     private var personagensDosJogadores: List<Personagem> = ArrayList()
     private val personagensDoMestre: MutableList<Personagem> = ArrayList()
     private var ordemIniciativa: MutableList<Personagem> = ArrayList()
     var pjsMortos = 0
+    var acaoTriplaAtivada = false
 
     fun criarPJs() {
         personagensDosJogadores = listOf(
@@ -44,14 +45,19 @@ class CombateService {
 
         while (personagensDosJogadores.isNotEmpty() && personagensDoMestre.isNotEmpty()) {
             for (personagem in ordemIniciativa) {
-                acaoService.executarAcao(personagem)
+                val quantidadeDeAcoes = if (acaoTriplaAtivada) 3 else 1
 
-                if (houveramBaixas(personagensDoMestre) && foramTodosMortos(personagensDoMestre)) {
-                    return true
+                for (i in 1..quantidadeDeAcoes) {
+                    acaoService.executarAcao(personagem)
+
+                    if (houveramBaixas(personagensDoMestre) && foramTodosMortos(personagensDoMestre)) {
+                        return true
+                    }
+                    if (houveramBaixas(personagensDosJogadores) && foramTodosMortos(personagensDosJogadores)) {
+                        return false
+                    }
                 }
-                if (houveramBaixas(personagensDosJogadores) && foramTodosMortos(personagensDosJogadores)) {
-                    return false
-                }
+                personagem.penalidadesAcerto = 0
             }
         }
         return personagensDoMestre.isEmpty()

@@ -16,7 +16,8 @@ class SimuladorService() {
         combateService.criarPDMs(troll, troll2)
     }
 
-    fun obterTaxasDeVitoriaPJ(amostragem: Int) {
+    fun obterTaxasDeVitoriaPJ(amostragem: Int, acaoTriplaAtivada: Boolean) {
+        combateService.acaoTriplaAtivada = acaoTriplaAtivada
         var porcentagemVitoria = 0.0
         var porcentagemSemBaixas = 0.0
         for (i in 0..<amostragem) {

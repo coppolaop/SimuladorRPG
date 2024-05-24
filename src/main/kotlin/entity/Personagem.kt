@@ -13,6 +13,7 @@ open class Personagem(
 ) {
     var hpAtual: Int = this.hpMaximo
     var iniciativa: Int = this.modIniciativa
+    var penalidadesAcerto: Int = 0
 
     fun estaVivo(): Boolean = this.hpAtual > 0
     fun estaFerido(): Boolean = estaVivo() && this.hpAtual < this.hpMaximo
@@ -22,7 +23,8 @@ open class Personagem(
     }
 
     fun atacar(defensor: Personagem) {
-        val valorAtaque = rollDice("d20") + this.acerto
+        val valorAtaque = rollDice("d20") + this.acerto - this.penalidadesAcerto
+        this.penalidadesAcerto = 5
 
         if (valorAtaque.compareTo(defensor.ca) > -1) {
             val dano = rollDice(this.dadoDano) + this.modDano
