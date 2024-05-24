@@ -3,5 +3,8 @@ package com.coppolaop
 import com.coppolaop.service.SimuladorService
 
 fun main() {
-    SimuladorService().obterTaxasDeVitoriaPJ(100000, true)
+    SimuladorService()
+        .ativarAcaoTripla()
+        .ativarCriticoEmMais10()
+        .obterTaxasDeVitoriaPJ(100000)
 }

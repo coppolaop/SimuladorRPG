@@ -13,7 +13,6 @@ class CombateService() {
     private val personagensDoMestre: MutableList<Personagem> = ArrayList()
     private var ordemIniciativa: MutableList<Personagem> = ArrayList()
     var pjsMortos = 0
-    var acaoTriplaAtivada = false
 
     fun criarPJs() {
         personagensDosJogadores = listOf(
@@ -45,7 +44,7 @@ class CombateService() {
 
         while (personagensDosJogadores.isNotEmpty() && personagensDoMestre.isNotEmpty()) {
             for (personagem in ordemIniciativa) {
-                val quantidadeDeAcoes = if (acaoTriplaAtivada) 3 else 1
+                val quantidadeDeAcoes = if (SimuladorService.flagAcaoTripla) 3 else 1
 
                 for (i in 1..quantidadeDeAcoes) {
                     acaoService.executarAcao(personagem)

@@ -4,9 +4,12 @@ import com.coppolaop.entity.Monstro
 import com.coppolaop.entity.Personagem
 import com.coppolaop.entity.conceitos.Curandeiro
 
+/**
+ * Define direcionamentos relacionados às ações dos personagens em seus respectivos turnos
+ */
 class AcaoService(
     private var personagensDosJogadores: List<Personagem>,
-    private val personagensDoMestre: MutableList<Personagem>
+    private val personagensDoMestre: MutableList<Personagem>,
 ) {
     fun executarAcao(personagem: Personagem) {
         if (!personagem.estaVivo()) {

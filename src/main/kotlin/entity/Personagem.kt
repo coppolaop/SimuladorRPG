@@ -28,7 +28,7 @@ open class Personagem(
 
         if (valorAtaque.compareTo(defensor.ca) > -1) {
             val dano = rollDice(this.dadoDano) + this.modDano
-            defensor.hpAtual = defensor.hpAtual - dano
+            defensor.hpAtual -= dano
         }
     }
 }

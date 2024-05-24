@@ -9,15 +9,29 @@ import com.coppolaop.entity.Monstro
 class SimuladorService() {
     private val combateService = CombateService()
 
+    companion object {
+        var flagAcaoTripla = false
+        var flagCriticoEmMais10 = false
+    }
+
     init {
         combateService.criarPJs()
-        val troll = Monstro("Troll", 20, 40, 3, "1d8", 7, 2)
+        val troll = Monstro("Troll", 20, 40, 3, "1d8", 7, 1)
         val troll2 = Monstro("Troll", 20, 40, 3, "1d8", 7, 2)
         combateService.criarPDMs(troll, troll2)
     }
 
-    fun obterTaxasDeVitoriaPJ(amostragem: Int, acaoTriplaAtivada: Boolean) {
-        combateService.acaoTriplaAtivada = acaoTriplaAtivada
+    fun ativarAcaoTripla(): SimuladorService {
+        flagAcaoTripla = true
+        return this
+    }
+
+    fun ativarCriticoEmMais10(): SimuladorService {
+        flagCriticoEmMais10 = true
+        return this
+    }
+
+    fun obterTaxasDeVitoriaPJ(amostragem: Int) {
         var porcentagemVitoria = 0.0
         var porcentagemSemBaixas = 0.0
         for (i in 0..<amostragem) {
