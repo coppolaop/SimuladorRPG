@@ -3,22 +3,24 @@ package com.coppolaop.service
 import com.coppolaop.entity.Monstro
 import com.coppolaop.entity.Personagem
 import com.coppolaop.entity.classes.Clerigo
-import com.coppolaop.entity.conceitos.Curandeiro
 
+/**
+ * Reúne as principais funcionalidades de combate,
+ * separando Personagens do Jogador e Personagens do Mestre
+ */
 class CombateService {
-    private val personagensDosJogadores: MutableList<Personagem> = ArrayList()
+    private var personagensDosJogadores: List<Personagem> = ArrayList()
     private val personagensDoMestre: MutableList<Personagem> = ArrayList()
     private var ordemIniciativa: MutableList<Personagem> = ArrayList()
+    var pjsMortos = 0
 
     fun criarPJs() {
-        val guerreiro = Personagem("Guerreiro", 18, 23, 6, "1d8", 4, 0)
-        val mago = Personagem("Mago", 12, 11, 6, "3d4", 3, 2)
-        val ladino = Personagem("Ladino", 16, 15, 6, "2d6", 4, 4)
-        val clerigo: Personagem = Clerigo("Clérigo", 18, 19, 6, "1d6", 2, 0, "1d8", 3)
-        personagensDosJogadores.add(guerreiro)
-        personagensDosJogadores.add(mago)
-        personagensDosJogadores.add(ladino)
-        personagensDosJogadores.add(clerigo)
+        personagensDosJogadores = listOf(
+            Personagem("Guerreiro", 18, 23, 6, "1d8", 4, 0),
+            Personagem("Mago", 12, 11, 6, "3d4", 3, 2),
+            Personagem("Ladino", 16, 15, 6, "2d6", 4, 4),
+            Clerigo("Clérigo", 18, 19, 6, "1d6", 2, 0, "1d8", 3)
+        )
     }
 
     fun criarPDMs(vararg monstros: Personagem?) {
@@ -32,43 +34,23 @@ class CombateService {
         ordemIniciativa = ordemIniciativa.sortedByDescending { it.iniciativa }.toMutableList()
     }
 
-    fun porcentagemDeVitoriaDePJ(amostragem: Int): Double {
-        var porcentagemVitoria = 0.0
-        for (i in 0..<amostragem) {
-            if (PJsVencem()) {
-                porcentagemVitoria++
-            }
-        }
-        return porcentagemVitoria / (amostragem / 100)
-    }
-
-    private fun PJsVencem(): Boolean {
+    fun PJsVencem(): Boolean {
         val personagensDosJogadores: MutableList<Personagem> = ArrayList(this.personagensDosJogadores)
         val personagensDoMestre: MutableList<Personagem> = ArrayList(this.personagensDoMestre)
 
         ordemIniciativa = prepararInicioCombate(personagensDosJogadores, personagensDoMestre)
         rolarIniciativa()
+        val acaoService = AcaoService(personagensDosJogadores, personagensDoMestre)
 
         while (personagensDosJogadores.isNotEmpty() && personagensDoMestre.isNotEmpty()) {
             for (personagem in ordemIniciativa) {
-                if (!personagem.estaVivo()) {
-                    continue
+                acaoService.executarAcao(personagem)
+
+                if (houveramBaixas(personagensDoMestre) && foramTodosMortos(personagensDoMestre)) {
+                    return true
                 }
-                if (personagem is Curandeiro && personagensDosJogadores[0].estaFerido()
-                ) {
-                    personagem.curar(personagensDosJogadores[0])
-                } else {
-                    if (personagem is Monstro) {
-                        personagem.atacar(personagensDosJogadores[0])
-                        if (isCombateFinalizado(personagensDosJogadores)) {
-                            return false
-                        }
-                        continue
-                    }
-                    personagem.atacar(personagensDoMestre[0])
-                    if (isCombateFinalizado(personagensDoMestre)) {
-                        return true
-                    }
+                if (houveramBaixas(personagensDosJogadores) && foramTodosMortos(personagensDosJogadores)) {
+                    return false
                 }
             }
         }
@@ -79,6 +61,7 @@ class CombateService {
         personagensDosJogadores: List<Personagem>,
         personagensDoMestre: List<Personagem>
     ): MutableList<Personagem> {
+        pjsMortos = 0
         for (personagem in personagensDosJogadores) {
             personagem.hpAtual = personagem.hpMaximo
         }
@@ -90,12 +73,20 @@ class CombateService {
         return listaDeIniciativa
     }
 
-    private fun isCombateFinalizado(personagens: MutableList<Personagem>): Boolean {
+    private fun houveramBaixas(personagens: MutableList<Personagem>): Boolean {
         if (!personagens[0].estaVivo()) {
-            personagens.removeAt(0)
-            if (personagens.isEmpty()) {
-                return true
+            if (personagens[0] !is Monstro) {
+                pjsMortos++
             }
+            personagens.removeAt(0)
+            return true
+        }
+        return false
+    }
+
+    private fun foramTodosMortos(personagens: MutableList<Personagem>): Boolean {
+        if (personagens.isEmpty()) {
+            return true
         }
         return false
     }
