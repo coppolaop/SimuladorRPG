@@ -19,10 +19,16 @@ class AcaoService(
             if (personagem is Curandeiro && personagensDoMestre[0].estaFerido()) {
                 return personagem.curar(personagensDoMestre[0])
             }
+            if (personagem.estaSemFoco()) {
+                return personagem.focar()
+            }
             return personagem.atacar(personagensDosJogadores[0])
         }
         if (personagem is Curandeiro && personagensDosJogadores[0].estaFerido()) {
             return personagem.curar(personagensDosJogadores[0])
+        }
+        if (personagem.estaSemFoco()) {
+            return personagem.focar()
         }
         return personagem.atacar(personagensDoMestre[0])
     }

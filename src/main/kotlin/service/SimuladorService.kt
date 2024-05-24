@@ -16,7 +16,7 @@ class SimuladorService() {
 
     init {
         combateService.criarPJs()
-        val troll = Monstro("Troll", 20, 40, 3, "1d8", 7, 1)
+        val troll = Monstro("Troll", 20, 40, 3, "1d8", 7, 2)
         val troll2 = Monstro("Troll", 20, 40, 3, "1d8", 7, 2)
         combateService.criarPDMs(troll, troll2)
     }
