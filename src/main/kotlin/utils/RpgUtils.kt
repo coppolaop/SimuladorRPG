@@ -31,11 +31,15 @@ object RpgUtils {
 
         for (i in 0 until quantity) {
             when (mode) {
-                NORMAL -> result += Random().nextInt(size) + 1
+                NORMAL -> result += randomize(size)
                 MAX -> result += size
                 MIN -> result++
             }
         }
         return result
+    }
+
+    fun randomize(size: Int): Int {
+        return Random(System.currentTimeMillis()).nextInt(size) + 1
     }
 }

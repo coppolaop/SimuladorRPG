@@ -6,5 +6,5 @@ fun main() {
     SimuladorService()
         .ativarAcaoTripla()
         .ativarCriticoEmMais10()
-        .obterTaxasDeVitoriaPJ(100000)
+        .obterTaxasDeVitoriaPJ(10000000)
 }
