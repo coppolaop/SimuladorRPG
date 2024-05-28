@@ -11,15 +11,14 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.code.style>official</kotlin.code.style>
-        <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
-        <plugin.kotlin.maven.version>1.9.23</plugin.kotlin.maven.version>
-        <plugin.surefire.version>2.22.2</plugin.surefire.version>
-        <plugin.failsafe.version>2.22.2</plugin.failsafe.version>
-        <plugin.exec.maven.version>1.6.0</plugin.exec.maven.version>
-        <dependency.kotlin.junit.version>1.9.23</dependency.kotlin.junit.version>
-        <dependency.jupiter.junit.version>5.10.0</dependency.jupiter.junit.version>
-        <dependency.kotlin.stdlib.version>1.9.23</dependency.kotlin.stdlib.version>
-        <dependency.mockito.core.version>5.12.0</dependency.mockito.core.version>
+        <kotlin.compiler.jvmTarget>21</kotlin.compiler.jvmTarget>
+        <plugin.kotlin.maven.version>2.0.0</plugin.kotlin.maven.version>
+        <plugin.surefire.version>3.2.5</plugin.surefire.version>
+        <plugin.failsafe.version>3.2.5</plugin.failsafe.version>
+        <plugin.exec.maven.version>3.3.0</plugin.exec.maven.version>
+        <dependency.kotlin.junit.version>2.0.0</dependency.kotlin.junit.version>
+        <dependency.jupiter.junit.version>5.11.0-M2</dependency.jupiter.junit.version>
+        <dependency.kotlin.stdlib.version>2.0.0</dependency.kotlin.stdlib.version>
         <dependency.mockk.version>1.13.11</dependency.mockk.version>
     </properties>
 
