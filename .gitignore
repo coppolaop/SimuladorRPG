@@ -59,3 +59,7 @@ build/
 hs_err_pid*
 replay_pid*
 *.versionsBackup
+
+# Data files
+src/main/resources/pj/
+src/main/resources/pdm/
