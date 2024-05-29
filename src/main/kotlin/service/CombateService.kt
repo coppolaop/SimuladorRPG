@@ -23,8 +23,8 @@ class CombateService() {
         )
     }
 
-    fun criarPDMs(vararg monstros: Personagem?) {
-        personagensDoMestre.addAll(monstros.asList() as Collection<Personagem>)
+    fun criarPDMs(monstros: MutableList<Personagem>) {
+        personagensDoMestre.addAll(monstros)
     }
 
     fun rolarIniciativa() {

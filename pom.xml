@@ -20,6 +20,8 @@
         <dependency.jupiter.junit.version>5.11.0-M2</dependency.jupiter.junit.version>
         <dependency.kotlin.stdlib.version>2.0.0</dependency.kotlin.stdlib.version>
         <dependency.mockk.version>1.13.11</dependency.mockk.version>
+        <dependency.jackson.module.kotlin.version>2.17.1</dependency.jackson.module.kotlin.version>
+        <dependency.jackson.datatype.jsr310.version>2.17.1</dependency.jackson.datatype.jsr310.version>
     </properties>
 
     <repositories>
@@ -90,6 +92,16 @@
             <artifactId>mockk-jvm</artifactId>
             <version>${dependency.mockk.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+            <version>${dependency.jackson.module.kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${dependency.jackson.datatype.jsr310.version}</version>
         </dependency>
     </dependencies>
 </project>

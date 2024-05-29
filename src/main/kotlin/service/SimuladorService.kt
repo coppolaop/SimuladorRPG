@@ -1,13 +1,14 @@
 package com.coppolaop.service
 
-import com.coppolaop.entity.Monstro
+import com.coppolaop.entity.Personagem
 
 /**
  * Reúne funcionalidades relativas ao simulador em si,
  * funcionando de maneira similar a um padrão Builder para o CombateService
  */
-class SimuladorService() {
+class SimuladorService(monstro: String, quantidade: Int) {
     private val combateService = CombateService()
+    private val personagemService = PersonagemService()
 
     companion object {
         var flagAcaoTripla = false
@@ -16,9 +17,11 @@ class SimuladorService() {
 
     init {
         combateService.criarPJs()
-        val troll = Monstro("Troll", 20, 40, 3, "1d8", 7, 2)
-        val troll2 = Monstro("Troll", 20, 40, 3, "1d8", 7, 2)
-        combateService.criarPDMs(troll, troll2)
+        val monstros: MutableList<Personagem> = ArrayList()
+        for (i in 1..quantidade) {
+            monstros.add(personagemService.lerMonstro(monstro))
+        }
+        combateService.criarPDMs(monstros)
     }
 
     fun ativarAcaoTripla(): SimuladorService {
