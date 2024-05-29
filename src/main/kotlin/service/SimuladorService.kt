@@ -7,8 +7,8 @@ import com.coppolaop.entity.Personagem
  * funcionando de maneira similar a um padrão Builder para o CombateService
  */
 class SimuladorService(monstro: String, quantidade: Int) {
-    private val combateService = CombateService()
-    private val personagemService = PersonagemService()
+    private val combateService: CombateService = CombateService()
+    private val personagemService: PersonagemService = PersonagemService()
 
     companion object {
         var flagAcaoTripla = false
