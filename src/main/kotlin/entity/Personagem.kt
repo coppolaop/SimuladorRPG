@@ -30,7 +30,6 @@ open class Personagem(
     fun atacar(defensor: Personagem) {
         val valorAtaque = rollDice("d20") + this.acerto - (this.penalidadesAcerto + this.penalidadeFalhaCritica)
         this.penalidadesAcerto = 5
-        this.penalidadeFalhaCritica = 0
 
         if (!SimuladorService.flagCriticoEmMais10) {
             if (valorAtaque - defensor.ca >= 0) causarDano(defensor)
