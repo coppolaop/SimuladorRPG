@@ -10,6 +10,7 @@ import com.coppolaop.entity.conceitos.Curandeiro
 class AcaoService(
     private var personagensDosJogadores: List<Personagem>,
     private val personagensDoMestre: MutableList<Personagem>,
+    private var pjsMortos: MutableList<Personagem>,
 ) {
     fun executarAcao(personagem: Personagem) {
         if (!personagem.estaVivo()) {
@@ -24,8 +25,13 @@ class AcaoService(
             }
             return personagem.atacar(personagensDosJogadores[0])
         }
-        if (personagem is Curandeiro && personagensDosJogadores[0].estaFerido()) {
-            return personagem.curar(personagensDosJogadores[0])
+        if (personagem is Curandeiro) {
+            if (pjsMortos.isNotEmpty()) {
+                return personagem.curar(pjsMortos[0])
+            }
+            if (personagensDosJogadores[0].estaFerido()) {
+                return personagem.curar(personagensDosJogadores[0])
+            }
         }
         if (personagem.estaSemFoco()) {
             return personagem.focar()

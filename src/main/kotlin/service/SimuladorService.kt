@@ -41,7 +41,7 @@ class SimuladorService(private val monstro: String, private val quantidade: Int)
         for (i in 0..<amostragem) {
             if (combateService.PJsVencem()) {
                 porcentagemVitoria++
-                if (combateService.pjsMortos == 0) {
+                if (combateService.pjsMortos.isEmpty()) {
                     porcentagemSemBaixas++
                 }
             }

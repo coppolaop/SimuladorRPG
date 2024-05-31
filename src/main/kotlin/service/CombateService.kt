@@ -12,7 +12,7 @@ class CombateService() {
     private var personagensDosJogadores: List<Personagem> = ArrayList()
     private val personagensDoMestre: MutableList<Personagem> = ArrayList()
     private var ordemIniciativa: MutableList<Personagem> = ArrayList()
-    var pjsMortos = 0
+    var pjsMortos: MutableList<Personagem> = ArrayList()
 
     fun criarPJs() {
         personagensDosJogadores = listOf(
@@ -40,7 +40,7 @@ class CombateService() {
 
         ordemIniciativa = prepararInicioCombate(personagensDosJogadores, personagensDoMestre)
         rolarIniciativa()
-        val acaoService = AcaoService(personagensDosJogadores, personagensDoMestre)
+        val acaoService = AcaoService(personagensDosJogadores, personagensDoMestre, pjsMortos)
 
         while (personagensDosJogadores.isNotEmpty() && personagensDoMestre.isNotEmpty()) {
             for (personagem in ordemIniciativa) {
@@ -55,6 +55,7 @@ class CombateService() {
                     if (houveramBaixas(personagensDosJogadores) && foramTodosMortos(personagensDosJogadores)) {
                         return false
                     }
+                    reestabilizarCaidos(personagensDosJogadores)
                 }
                 personagem.penalidadesAcerto = 0
             }
@@ -66,7 +67,7 @@ class CombateService() {
         personagensDosJogadores: List<Personagem>,
         personagensDoMestre: List<Personagem>
     ): MutableList<Personagem> {
-        pjsMortos = 0
+        pjsMortos = ArrayList()
         for (personagem in personagensDosJogadores) {
             personagem.hpAtual = personagem.hpMaximo
         }
@@ -81,7 +82,7 @@ class CombateService() {
     private fun houveramBaixas(personagens: MutableList<Personagem>): Boolean {
         if (!personagens[0].estaVivo()) {
             if (personagens[0] !is Monstro) {
-                pjsMortos++
+                pjsMortos.add(personagens[0])
             }
             personagens.removeAt(0)
             return true
@@ -94,5 +95,12 @@ class CombateService() {
             return true
         }
         return false
+    }
+
+    private fun reestabilizarCaidos(personagens: MutableList<Personagem>) {
+        if (pjsMortos.isNotEmpty() && pjsMortos[0].estaVivo()) {
+            personagens.add(0, pjsMortos[0])
+            pjsMortos.removeAt(0)
+        }
     }
 }
