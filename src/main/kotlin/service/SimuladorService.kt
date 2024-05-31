@@ -6,7 +6,7 @@ import com.coppolaop.entity.Personagem
  * Reúne funcionalidades relativas ao simulador em si,
  * funcionando de maneira similar a um padrão Builder para o CombateService
  */
-class SimuladorService(monstro: String, quantidade: Int) {
+class SimuladorService(private val monstro: String, private val quantidade: Int) {
     private val combateService: CombateService = CombateService()
     private val personagemService: PersonagemService = PersonagemService()
 
@@ -35,6 +35,7 @@ class SimuladorService(monstro: String, quantidade: Int) {
     }
 
     fun obterTaxasDeVitoriaPJ(amostragem: Int) {
+        println("Simulando combate de um grupo padrão nivel 1 contra ${this.quantidade} monstro(s) do tipo ${this.monstro}")
         var porcentagemVitoria = 0.0
         var porcentagemSemBaixas = 0.0
         for (i in 0..<amostragem) {
