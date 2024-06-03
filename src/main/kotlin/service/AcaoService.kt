@@ -17,7 +17,8 @@ class AcaoService(
             return
         }
         if (personagem is Monstro) {
-            if (personagem is Curandeiro && personagensDoMestre[0].estaFerido()) {
+            if (personagem is Curandeiro && personagensDoMestre[0].estaFerido() && personagem.energiaAtual > 0) {
+                personagem.energiaAtual--
                 return personagem.curar(personagensDoMestre[0])
             }
             if (personagem.estaSemFoco()) {
@@ -25,11 +26,13 @@ class AcaoService(
             }
             return personagem.atacar(personagensDosJogadores[0])
         }
-        if (personagem is Curandeiro) {
+        if (personagem is Curandeiro && personagem.energiaAtual > 0) {
             if (pjsMortos.isNotEmpty()) {
+                personagem.energiaAtual--
                 return personagem.curar(pjsMortos[0])
             }
             if (personagensDosJogadores[0].estaFerido()) {
+                personagem.energiaAtual--
                 return personagem.curar(personagensDosJogadores[0])
             }
         }

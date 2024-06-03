@@ -8,12 +8,14 @@ open class Personagem(
     val nome: String,
     var ca: Int,
     var hpMaximo: Int,
+    var energiaMaxima: Int,
     var acerto: Int,
     var dadoDano: String,
     var modDano: Int,
     var modIniciativa: Int
 ) {
     var hpAtual: Int = this.hpMaximo
+    var energiaAtual: Int = this.energiaMaxima
     var iniciativa: Int = this.modIniciativa
     var penalidadesAcerto: Int = 0
     var penalidadeFalhaCritica: Int = 0
