@@ -3,6 +3,7 @@ package utils
 import com.coppolaop.utils.RpgUtils
 import io.mockk.every
 import io.mockk.mockkObject
+import io.mockk.unmockkAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -16,6 +17,14 @@ internal class RpgUtilsTest {
         val result = RpgUtils.rollDice("1d20")
 
         assertEquals(10, result)
+        unmockkAll()
+    }
+
+    @Test
+    internal fun rollDice_1d1() {
+        val result = RpgUtils.rollDice("1d1")
+
+        assertEquals(1, result)
     }
 
     @Test
@@ -26,6 +35,7 @@ internal class RpgUtilsTest {
         val result = RpgUtils.rollDice("6d6")
 
         assertEquals(18, result)
+        unmockkAll()
     }
 
     @Test
