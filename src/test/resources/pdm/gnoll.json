@@ -1,0 +1,9 @@
+{
+  "nome": "Gnoll",
+  "ca": 15,
+  "hpMaximo": 15,
+  "acerto": 10,
+  "dadoDano": "1d6",
+  "modDano": 4,
+  "iniciativa": 1
+}
