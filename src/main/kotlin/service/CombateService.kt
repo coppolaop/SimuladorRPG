@@ -23,6 +23,12 @@ class CombateService() {
         )
     }
 
+    fun ajustarNivelDosPJs() {
+        for (personagem in personagensDosJogadores) {
+            PersonagemService.aumentarNivel(personagem, SimuladorService.nivelDesejado)
+        }
+    }
+
     fun criarPDMs(monstros: MutableList<Personagem>) {
         personagensDoMestre.addAll(monstros)
     }

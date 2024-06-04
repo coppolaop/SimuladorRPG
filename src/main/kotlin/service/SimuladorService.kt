@@ -13,6 +13,7 @@ class SimuladorService(private val monstro: String, private val quantidade: Int)
     companion object {
         var flagAcaoTripla = false
         var flagCriticoEmMais10 = false
+        var nivelDesejado = 1
     }
 
     init {
@@ -34,8 +35,14 @@ class SimuladorService(private val monstro: String, private val quantidade: Int)
         return this
     }
 
+    fun definirNivel(nivel: Int): SimuladorService {
+        nivelDesejado = nivel
+        combateService.ajustarNivelDosPJs()
+        return this
+    }
+
     fun obterTaxasDeVitoriaPJ(amostragem: Int) {
-        println("Simulando combate de um grupo padrão nivel 1 contra ${this.quantidade} monstro(s) do tipo ${this.monstro}")
+        println("Simulando combate de um grupo padrão nivel $nivelDesejado contra ${this.quantidade} monstro(s) do tipo ${this.monstro}")
         var porcentagemVitoria = 0.0
         var porcentagemSemBaixas = 0.0
         for (i in 0..<amostragem) {

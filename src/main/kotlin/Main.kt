@@ -6,5 +6,6 @@ fun main() {
     SimuladorService("gnoll", 4)
         .ativarAcaoTripla()
         .ativarCriticoEmMais10()
+        .definirNivel(1)
         .obterTaxasDeVitoriaPJ(10000000)
 }
