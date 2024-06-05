@@ -38,6 +38,7 @@ class PersonagemService {
             personagem.energiaMaxima *= nivelDesejado
             personagem.energiaAtual = personagem.energiaMaxima
             personagem.acerto += (nivelDesejado - 1) / 2
+            personagem.recalcularHabilidadeDeClasse()
         }
     }
 }

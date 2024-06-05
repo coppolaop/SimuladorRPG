@@ -24,12 +24,13 @@ open class Personagem(
     fun estaVivo(): Boolean = this.hpAtual > 0
     fun estaFerido(): Boolean = estaVivo() && this.hpAtual < this.hpMaximo
     fun estaSemFoco(): Boolean = this.penalidadeFalhaCritica > 0
+    open fun recalcularHabilidadeDeClasse() {}
 
     fun rolarIniciativa() {
         this.iniciativa = this.modIniciativa + rollDice("d20")
     }
 
-    fun atacar(defensor: Personagem) {
+    open fun atacar(defensor: Personagem) {
         val valorAtaque = rollDice("d20") + this.acerto - (this.penalidadesAcerto + this.penalidadeFalhaCritica)
         this.penalidadesAcerto = 5
 
