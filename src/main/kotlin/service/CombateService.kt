@@ -4,6 +4,7 @@ import com.coppolaop.entity.Monstro
 import com.coppolaop.entity.Personagem
 import com.coppolaop.entity.classes.Clerigo
 import com.coppolaop.entity.classes.Guerreiro
+import com.coppolaop.entity.classes.Ladino
 
 /**
  * Reúne as principais funcionalidades de combate,
@@ -19,7 +20,7 @@ class CombateService() {
         personagensDosJogadores = listOf(
             Guerreiro("Guerreiro", 18, 23, 6, "1d8", 4, 0),
             Personagem("Mago", 12, 11, 10, 6, "3d4", 3, 2),
-            Personagem("Ladino", 16, 15, 4, 6, "2d6", 4, 4),
+            Ladino("Ladino", 16, 15, 6, "1d4", 4, 4),
             Clerigo("Clérigo", 18, 19, 8, 6, "1d6", 2, 0, "1d8", 3)
         )
     }
