@@ -42,19 +42,24 @@ class SimuladorService(private val monstro: String, private val quantidade: Int)
     }
 
     fun obterTaxasDeVitoriaPJ(amostragem: Int) {
-        println("Simulando combate de um grupo padrão nivel $nivelDesejado contra ${this.quantidade} monstro(s) do tipo ${this.monstro}")
+        println("Iniciando simulação de combate de um grupo padrão nivel $nivelDesejado contra ${this.quantidade} monstro(s) do tipo ${this.monstro}")
         var porcentagemVitoria = 0.0
         var porcentagemSemBaixas = 0.0
-        for (i in 0..<amostragem) {
-            if (combateService.PJsVencem()) {
-                porcentagemVitoria++
-                if (combateService.pjsMortos.isEmpty()) {
-                    porcentagemSemBaixas++
+        val dezPorCentoDaAmostragem = amostragem / 10
+        for (i in 1..10) {
+            for (j in 1..<dezPorCentoDaAmostragem) {
+                if (combateService.PJsVencem()) {
+                    porcentagemVitoria++
+                    if (combateService.pjsMortos.isEmpty()) {
+                        porcentagemSemBaixas++
+                    }
                 }
             }
+            println("Simulação em ${i}0%")
         }
         porcentagemVitoria /= amostragem / 100
         porcentagemSemBaixas /= amostragem / 100
+        println("Resultado da simulação de combate de um grupo padrão nivel $nivelDesejado contra ${this.quantidade} monstro(s) do tipo ${this.monstro}")
         println("Porcentagem de vitória: $porcentagemVitoria%")
         println("Porcentagem de vitória sem baixas: $porcentagemSemBaixas%")
     }
