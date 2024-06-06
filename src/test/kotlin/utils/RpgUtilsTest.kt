@@ -4,20 +4,34 @@ import com.coppolaop.utils.RpgUtils
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkAll
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 internal class RpgUtilsTest {
+
+    @AfterEach
+    fun tearDown() {
+        unmockkAll()
+    }
 
     @Test
     internal fun rollDice_simple() {
         mockkObject(RpgUtils)
         every { RpgUtils.randomize(any<Int>()) } returns 10
 
-        val result = RpgUtils.rollDice("1d20")
+        val result = RpgUtils.rollDice("d20")
 
         assertEquals(10, result)
-        unmockkAll()
+    }
+
+    @Test
+    internal fun rollDice_withoutMock() {
+        val result = RpgUtils.rollDice("d20")
+
+        assertTrue(result >= 1)
+        assertTrue(result <= 20)
     }
 
     @Test
@@ -35,7 +49,6 @@ internal class RpgUtilsTest {
         val result = RpgUtils.rollDice("6d6")
 
         assertEquals(18, result)
-        unmockkAll()
     }
 
     @Test

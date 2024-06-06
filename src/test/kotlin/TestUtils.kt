@@ -1,11 +1,16 @@
 import com.coppolaop.entity.Monstro
 import com.coppolaop.entity.Personagem
 import com.coppolaop.entity.classes.Clerigo
+import com.coppolaop.entity.classes.Guerreiro
 
 class TestUtils {
     companion object {
-        fun gerarPJGuerreiro(): Personagem {
-            return Personagem("Guerreiro", 18, 23, 3, 6, "1d8", 4, 0)
+        fun gerarPJSemClasse(): Personagem {
+            return Personagem("Aventureiro", 18, 23, 3, 6, "1d8", 4, 0)
+        }
+
+        fun gerarPJGuerreiro(): Guerreiro {
+            return Guerreiro("Guerreiro", 18, 23, 6, "1d8", 4, 0)
         }
 
         fun gerarPJGuerreiroFerido(): Personagem {
@@ -42,6 +47,10 @@ class TestUtils {
 
         fun gerarMonstroComMuitoAcerto(): Monstro {
             return Monstro("MaquinaDeTiro", 0, 10, 0, 30, "1d1", 0, 0)
+        }
+
+        fun gerarMonstroComMuitaCA(): Monstro {
+            return Monstro("AlvoMovelExtremamenteVeloz", 30, 50, 0, 0, "1d1", 0, 0)
         }
 
         fun gerarMonstroSemFoco(): Monstro {
