@@ -53,6 +53,10 @@ class TestUtils {
             return Monstro("AlvoMovelExtremamenteVeloz", 30, 50, 0, 0, "1d1", 0, 0)
         }
 
+        fun gerarMonstroExtremamentePoderoso(): Monstro {
+            return Monstro("PersonagemMaisFracoDeQualquerAnimeShonen", 10000, 10000, 10000, 10000, "1d1", 10000, 10000)
+        }
+
         fun gerarMonstroSemFoco(): Monstro {
             val monstro = gerarMonstroComMuitoAcerto()
             monstro.penalidadeFalhaCritica = 5
