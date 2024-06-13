@@ -6,7 +6,7 @@ import com.coppolaop.entity.Personagem
  * Reúne funcionalidades relativas ao simulador em si,
  * funcionando de maneira similar a um padrão Builder para o CombateService
  */
-class SimuladorService(private val monstro: String, private val quantidade: Int) {
+class SimuladorService(private var monstro: String, private val quantidade: Int) {
     private val combateService: CombateService = CombateService()
     private val personagemService: PersonagemService = PersonagemService()
 
@@ -23,6 +23,7 @@ class SimuladorService(private val monstro: String, private val quantidade: Int)
             monstros.add(personagemService.lerMonstro(monstro))
         }
         combateService.criarPDMs(monstros)
+        this.monstro = monstros[0].nome
     }
 
     fun ativarAcaoTripla(): SimuladorService {
