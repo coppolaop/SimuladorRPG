@@ -1,6 +1,7 @@
 package com.coppolaop.service
 
 import com.coppolaop.entity.Personagem
+import com.coppolaop.entity.dtos.ResultadoSimulacao
 
 /**
  * Reúne funcionalidades relativas ao simulador em si,
@@ -44,24 +45,15 @@ class SimuladorService(private var monstro: String, private val quantidade: Int)
 
     fun obterTaxasDeVitoriaPJ(amostragem: Int) {
         println("Iniciando simulação de combate de um grupo padrão nivel $nivelDesejado contra ${this.quantidade} monstro(s) do tipo ${this.monstro}")
-        var porcentagemVitoria = 0.0
-        var porcentagemSemBaixas = 0.0
+        val resultado = ResultadoSimulacao()
         val dezPorCentoDaAmostragem = amostragem / 10
         for (i in 1..10) {
             for (j in 1..<dezPorCentoDaAmostragem) {
-                if (combateService.PJsVencem()) {
-                    porcentagemVitoria++
-                    if (combateService.pjsMortos.isEmpty()) {
-                        porcentagemSemBaixas++
-                    }
-                }
+                resultado.somarResultadoCombate(combateService.iniciarCombate())
             }
             println("Simulação em ${i}0%")
         }
-        porcentagemVitoria /= amostragem / 100
-        porcentagemSemBaixas /= amostragem / 100
         println("Resultado da simulação de combate de um grupo padrão nivel $nivelDesejado contra ${this.quantidade} monstro(s) do tipo ${this.monstro}")
-        println("Porcentagem de vitória: $porcentagemVitoria%")
-        println("Porcentagem de vitória sem baixas: $porcentagemSemBaixas%")
+        resultado.calcularPorcentagens(amostragem).calcularMedias(amostragem)
     }
 }

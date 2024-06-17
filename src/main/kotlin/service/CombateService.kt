@@ -6,6 +6,7 @@ import com.coppolaop.entity.classes.Clerigo
 import com.coppolaop.entity.classes.Guerreiro
 import com.coppolaop.entity.classes.Ladino
 import com.coppolaop.entity.classes.Mago
+import com.coppolaop.entity.dtos.ResultadoCombate
 
 /**
  * Reúne as principais funcionalidades de combate,
@@ -43,7 +44,8 @@ class CombateService() {
         ordemIniciativa = ordemIniciativa.sortedByDescending { it.iniciativa }.toMutableList()
     }
 
-    fun PJsVencem(): Boolean {
+    fun iniciarCombate(): ResultadoCombate {
+        val resultado = ResultadoCombate()
         val personagensDosJogadores: MutableList<Personagem> = ArrayList(this.personagensDosJogadores)
         val personagensDoMestre: MutableList<Personagem> = ArrayList(this.personagensDoMestre)
 
@@ -52,24 +54,35 @@ class CombateService() {
         val acaoService = AcaoService(personagensDosJogadores, personagensDoMestre, pjsMortos)
 
         while (personagensDosJogadores.isNotEmpty() && personagensDoMestre.isNotEmpty()) {
+            resultado.quantidadeTurnos++
             for (personagem in ordemIniciativa) {
                 val quantidadeDeAcoes = if (SimuladorService.flagAcaoTripla) 3 else 1
 
                 for (i in 1..quantidadeDeAcoes) {
+                    resultado.quantidadeAcoes++
                     acaoService.executarAcao(personagem)
 
-                    if (houveramBaixas(personagensDoMestre) && foramTodosMortos(personagensDoMestre)) {
-                        return true
+                    if (houveramBaixas(
+                            personagensDoMestre,
+                            resultado
+                        ) && foramTodosMortos(personagensDoMestre)
+                    ) {
+                        return resultado
                     }
-                    if (houveramBaixas(personagensDosJogadores) && foramTodosMortos(personagensDosJogadores)) {
-                        return false
+                    if (houveramBaixas(personagensDosJogadores, resultado) && foramTodosMortos(
+                            personagensDosJogadores
+                        )
+                    ) {
+                        resultado.pjsVenceram = false
+                        return resultado
                     }
                     reestabilizarCaidos(personagensDosJogadores)
                 }
                 personagem.penalidadesAcerto = 0
             }
         }
-        return personagensDoMestre.isEmpty()
+        resultado.pjsVenceram = personagensDoMestre.isEmpty()
+        return resultado
     }
 
     private fun prepararInicioCombate(
@@ -90,10 +103,11 @@ class CombateService() {
         return listaDeIniciativa
     }
 
-    private fun houveramBaixas(personagens: MutableList<Personagem>): Boolean {
+    private fun houveramBaixas(personagens: MutableList<Personagem>, resultado: ResultadoCombate): Boolean {
         if (!personagens[0].estaVivo()) {
             if (personagens[0] !is Monstro) {
                 pjsMortos.add(personagens[0])
+                resultado.quantidadeQuedasPJ++
             }
             personagens.removeAt(0)
             return true
