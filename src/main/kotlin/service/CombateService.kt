@@ -20,10 +20,10 @@ class CombateService() {
 
     fun criarPJs() {
         personagensDosJogadores = listOf(
-            Guerreiro("Guerreiro", 18, 23, 6, "1d8", 4, 0),
-            Mago("Mago", 12, 11, 10, 6, "1d6", 3, 2),
+            Guerreiro("Guerreiro", 18, 21, 6, "1d8", 4, 0),
+            Mago("Mago", 12, 12, 10, 6, "1d6", 3, 2),
             Ladino("Ladino", 16, 15, 6, "1d4", 4, 4),
-            Clerigo("Clérigo", 18, 19, 8, 6, "1d6", 2, 0, "1d8", 3)
+            Clerigo("Clérigo", 18, 18, 8, 6, "1d6", 2, 0, "1d8", 3)
         )
     }
 

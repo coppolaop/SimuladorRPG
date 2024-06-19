@@ -2,43 +2,53 @@ import com.coppolaop.entity.Monstro
 import com.coppolaop.entity.Personagem
 import com.coppolaop.entity.classes.Clerigo
 import com.coppolaop.entity.classes.Guerreiro
+import com.coppolaop.entity.classes.Ladino
+import com.coppolaop.entity.classes.Mago
 
 class TestUtils {
     companion object {
         fun gerarPJSemClasse(): Personagem {
-            return Personagem("Aventureiro", 18, 23, 3, 6, "1d8", 4, 0)
+            return Personagem("Aventureiro", 18, 21, 3, 6, "1d8", 4, 0)
         }
 
         fun gerarPJGuerreiro(): Guerreiro {
-            return Guerreiro("Guerreiro", 18, 23, 6, "1d8", 4, 0)
+            return Guerreiro("Guerreiro", 18, 21, 6, "1d8", 4, 0)
         }
 
-        fun gerarPJGuerreiroFerido(): Personagem {
+        fun gerarPJGuerreiroFerido(): Guerreiro {
             val guerreiro = gerarPJGuerreiro()
             guerreiro.hpAtual--
             return guerreiro
         }
 
-        fun gerarPJGuerreiroCaido(): Personagem {
+        fun gerarPJGuerreiroCaido(): Guerreiro {
             val guerreiro = gerarPJGuerreiro()
             guerreiro.hpAtual = 0
             return guerreiro
         }
 
-        fun gerarPJGuerreiroSemFoco(): Personagem {
+        fun gerarPJGuerreiroSemFoco(): Guerreiro {
             val guerreiro = gerarPJGuerreiro()
             guerreiro.penalidadeFalhaCritica = 5
             return guerreiro
         }
 
-        fun gerarPJClerigo(): Personagem {
-            return Clerigo("Clérigo", 18, 19, 8, 6, "1d6", 2, 0, "1d8", 3)
+        fun gerarPJClerigo(): Clerigo {
+            return Clerigo("Clérigo", 18, 18, 8, 6, "1d6", 2, 0, "1d8", 3)
         }
 
-        fun gerarPJClerigoSemEnergia(): Personagem {
+        fun gerarPJClerigoSemEnergia(): Clerigo {
             val clerigo = gerarPJClerigo()
             clerigo.energiaAtual = 0
             return clerigo
+        }
+
+        fun gerarPJLadino(): Ladino {
+            return Ladino("Ladino", 16, 15, 6, "1d4", 4, 4)
+        }
+
+        fun gerarPJMago(): Mago {
+            return Mago("Mago", 12, 12, 10, 6, "1d6", 3, 2)
         }
 
         fun gerarMonstroComMuitoHP(): Monstro {
