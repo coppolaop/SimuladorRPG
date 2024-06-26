@@ -1,4 +1,5 @@
 target/
+out/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
@@ -61,5 +62,5 @@ replay_pid*
 *.versionsBackup
 
 # Data files
-src/main/resources/pj/
-src/main/resources/pdm/
+resources/pj/
+resources/pdm/

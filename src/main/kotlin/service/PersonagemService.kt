@@ -8,6 +8,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import java.io.File
+import java.io.FileNotFoundException
 
 /**
  * Reúne funcionalidades para tratamento de personagens,
@@ -17,8 +19,13 @@ class PersonagemService {
 
     fun lerMonstro(nomeArquivo: String): Monstro {
         val mapper = getMapper()
-        val jsonString: String =
-            this.javaClass.classLoader.getResource("pdm/${nomeArquivo}.json")!!.readText(Charsets.UTF_8)
+        var jsonString: String
+        try {
+            jsonString = File("resources/pdm/${nomeArquivo}.json").readText(Charsets.UTF_8)
+        } catch (e: FileNotFoundException) {
+            println("Arquivo ${nomeArquivo}.json não encontrado. Buscando arquivo interno do sistema.")
+            jsonString = this.javaClass.classLoader.getResource("pdm/${nomeArquivo}.json")!!.readText(Charsets.UTF_8)
+        }
         return mapper.readValue<Monstro>(jsonString)
     }
 

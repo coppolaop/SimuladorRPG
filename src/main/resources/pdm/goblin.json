@@ -1,0 +1,9 @@
+{
+  "nome": "Goblin",
+  "ca": 13,
+  "hpMaximo": 15,
+  "acerto": 7,
+  "dadoDano": "1d4",
+  "modDano": 3,
+  "iniciativa": 2
+}

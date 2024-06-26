@@ -1,0 +1,9 @@
+{
+  "nome": "Troll",
+  "ca": 20,
+  "hpMaximo": 40,
+  "acerto": 3,
+  "dadoDano": "1d8",
+  "modDano": 7,
+  "iniciativa": 2
+}
