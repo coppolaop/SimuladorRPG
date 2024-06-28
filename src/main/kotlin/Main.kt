@@ -9,10 +9,10 @@ fun main() {
     monstro = if (monstro.isNullOrBlank()) null else monstro
     println("Insira a quantidade que você deseja de monstros desse tipo: ")
     var quantidade = readLine()
-    quantidade = if (monstro.isNullOrBlank()) null else quantidade
+    quantidade = if (quantidade.isNullOrBlank()) null else quantidade
     println("Informe o nível desejado do grupo de aventureiros: ")
     var nivel = readLine()
-    nivel = if (monstro.isNullOrBlank()) null else nivel
+    nivel = if (nivel.isNullOrBlank()) null else nivel
 
     SimuladorService(monstro ?: "gnoll", quantidade?.toInt() ?: 1)
         .ativarAcaoTripla()
