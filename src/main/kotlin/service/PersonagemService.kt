@@ -10,6 +10,9 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.File
 import java.io.FileNotFoundException
+import java.nio.file.Files
+import java.nio.file.Paths
+import kotlin.io.path.nameWithoutExtension
 
 /**
  * Reúne funcionalidades para tratamento de personagens,
@@ -46,6 +49,18 @@ class PersonagemService {
             personagem.energiaAtual = personagem.energiaMaxima
             personagem.acerto += (nivelDesejado - 1) / 2
             personagem.recalcularHabilidadeDeClasse()
+        }
+
+        fun listarMonstros(isInternal: Boolean): List<String> {
+            val monstros = ArrayList<String>()
+            val projectDirAbsolutePath = Paths.get("").toAbsolutePath().toString()
+            val path = if (isInternal) "src/main/resources/pdm" else "/resources/pdm"
+            val resourcesPath = Paths.get(projectDirAbsolutePath, path)
+            Files.walk(resourcesPath)
+                .filter { item -> Files.isRegularFile(item) }
+                .filter { item -> item.toString().endsWith(".json") }
+                .forEach { item -> monstros.add(item.nameWithoutExtension) }
+            return monstros
         }
     }
 }
