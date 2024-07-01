@@ -1,6 +1,6 @@
 package com.coppolaop.utils
 
-import java.util.*
+import kotlin.random.Random
 
 object RpgUtils {
     private val MAX = "MAX"
@@ -31,15 +31,11 @@ object RpgUtils {
 
         for (i in 0 until quantity) {
             when (mode) {
-                NORMAL -> result += randomize(size)
+                NORMAL -> result += Random.nextInt(size) + 1
                 MAX -> result += size
                 MIN -> result++
             }
         }
         return result
-    }
-
-    fun randomize(size: Int): Int {
-        return Random(System.currentTimeMillis()).nextInt(size) + 1
     }
 }
