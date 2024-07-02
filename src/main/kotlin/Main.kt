@@ -2,9 +2,11 @@ package com.coppolaop
 
 import com.coppolaop.service.PersonagemService
 import com.coppolaop.service.SimuladorService
+import java.io.File
 
 fun main() {
     println("Bem vindo ao Simulador de combates de RPG")
+    File("resources/pdm").mkdirs()
     val monstro = escolherMonstro()
     println("Insira a quantidade que você deseja de monstros desse tipo: ")
     var quantidade = readLine()
