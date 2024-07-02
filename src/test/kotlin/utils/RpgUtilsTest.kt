@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import kotlin.random.Random
 
 internal class RpgUtilsTest {
 
@@ -18,8 +19,8 @@ internal class RpgUtilsTest {
 
     @Test
     internal fun rollDice_simple() {
-        mockkObject(RpgUtils)
-        every { RpgUtils.randomize(any<Int>()) } returns 10
+        mockkObject(Random)
+        every { Random.nextInt(any()) } returns 9
 
         val result = RpgUtils.rollDice("d20")
 
@@ -43,8 +44,8 @@ internal class RpgUtilsTest {
 
     @Test
     internal fun rollDice_MultipleDice() {
-        mockkObject(RpgUtils)
-        every { RpgUtils.randomize(any<Int>()) } returns 3
+        mockkObject(Random)
+        every { Random.nextInt(any()) } returns 2
 
         val result = RpgUtils.rollDice("6d6")
 
