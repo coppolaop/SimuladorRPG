@@ -2,6 +2,7 @@ package com.coppolaop.entity.classes
 
 import com.coppolaop.entity.Personagem
 import com.coppolaop.entity.conceitos.Curandeiro
+import com.coppolaop.service.SimuladorService
 
 class Clerigo(
     nome: String,
@@ -23,4 +24,8 @@ class Clerigo(
     dadoDano,
     modDano,
     iniciativa,
-), Curandeiro
+), Curandeiro {
+    override fun recalcularHabilidadeDeClasse() {
+        dadoCura = "${(SimuladorService.nivelDesejado + 1) / 2}d8"
+    }
+}
