@@ -9,7 +9,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.io.File
-import java.io.FileNotFoundException
+import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Paths
 import kotlin.io.path.nameWithoutExtension
@@ -19,16 +19,10 @@ import kotlin.io.path.nameWithoutExtension
  * desde a criação a partir de arquivo até tratativas internas do jogo
  */
 class PersonagemService {
-
     fun lerMonstro(nomeArquivo: String): Monstro {
         val mapper = getMapper()
-        var jsonString: String
-        try {
-            jsonString = File("resources/pdm/${nomeArquivo}.json").readText(Charsets.UTF_8)
-        } catch (e: FileNotFoundException) {
-            println("Arquivo ${nomeArquivo}.json não encontrado. Buscando arquivo interno do sistema.")
-            jsonString = this.javaClass.classLoader.getResource("pdm/${nomeArquivo}.json")!!.readText(Charsets.UTF_8)
-        }
+        val jsonString: String
+        jsonString = File("$pdmDirectory${nomeArquivo}.json").readText(Charsets.UTF_8)
         return mapper.readValue<Monstro>(jsonString)
     }
 
@@ -41,6 +35,8 @@ class PersonagemService {
     }
 
     companion object {
+        val pdmDirectory = "resources/pdm/"
+
         fun aumentarNivel(personagem: Personagem, nivelDesejado: Int) {
             val hpPorNivel = personagem.hpMaximo / 3
             personagem.hpMaximo += hpPorNivel * (nivelDesejado - 1)
@@ -51,16 +47,30 @@ class PersonagemService {
             personagem.recalcularHabilidadeDeClasse()
         }
 
-        fun listarMonstros(isInternal: Boolean): List<String> {
+        fun listarMonstros(): List<String> {
             val monstros = ArrayList<String>()
             val projectDirAbsolutePath = Paths.get("").toAbsolutePath().toString()
-            val path = if (isInternal) "src/main/resources/pdm" else "/resources/pdm"
-            val resourcesPath = Paths.get(projectDirAbsolutePath, path)
+            val resourcesPath = Paths.get(projectDirAbsolutePath, pdmDirectory)
             Files.walk(resourcesPath)
                 .filter { item -> Files.isRegularFile(item) }
                 .filter { item -> item.toString().endsWith(".json") }
                 .forEach { item -> monstros.add(item.nameWithoutExtension) }
+
+            if (monstros.isEmpty()) monstros.add(criarPersonagemBasico())
+
             return monstros
+        }
+
+        private fun criarPersonagemBasico(): String {
+            val monstro = Monstro("Gnoll", 15, 15, 0, 10, "1d6", 4, 1)
+            val path = "${pdmDirectory}${monstro.nome.lowercase()}.json"
+            try {
+                val mapper = ObjectMapper()
+                mapper.writerWithDefaultPrettyPrinter().writeValue(File(path), monstro)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            return monstro.nome.lowercase()
         }
     }
 }
