@@ -1,9 +1,0 @@
-{
-  "nome": "Fera da Planicie",
-  "ca": 16,
-  "hpMaximo": 50,
-  "acerto": 5,
-  "dadoDano": "1d8",
-  "modDano": 10,
-  "iniciativa": 6
-}

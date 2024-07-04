@@ -1,9 +1,0 @@
-{
-  "nome": "Criatura do vazio",
-  "ca": 26,
-  "hpMaximo": 100,
-  "acerto": 12,
-  "dadoDano": "2d10",
-  "modDano": 7,
-  "iniciativa": 1
-}

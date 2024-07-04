@@ -1,9 +1,0 @@
-{
-  "nome": "Lagarto umbral",
-  "ca": 13,
-  "hpMaximo": 82,
-  "acerto": 7,
-  "dadoDano": "2d6",
-  "modDano": 3,
-  "iniciativa": 5
-}
