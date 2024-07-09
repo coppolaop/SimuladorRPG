@@ -1,6 +1,7 @@
 package service
 
 import TestUtils
+import TestUtils.Companion.gerarGrupoPJ
 import com.coppolaop.service.CombateService
 import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.Assertions.*
@@ -13,7 +14,7 @@ class CombateServiceTest {
 
     @Test
     fun iniciarCombate_True() {
-        service.criarPJs()
+        service.adicionarPJs(gerarGrupoPJ())
         val monstro = TestUtils.gerarMonstroComMuitoHP()
         service.criarPDMs(mutableListOf(monstro))
 
@@ -25,7 +26,7 @@ class CombateServiceTest {
 
     @Test
     fun iniciarCombate_False() {
-        service.criarPJs()
+        service.adicionarPJs(gerarGrupoPJ())
         val monstro = TestUtils.gerarMonstroExtremamentePoderoso()
         service.criarPDMs(mutableListOf(monstro))
 
