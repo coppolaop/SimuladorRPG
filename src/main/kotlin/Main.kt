@@ -7,6 +7,7 @@ import java.io.File
 fun main() {
     println("Bem vindo ao Simulador de combates de RPG")
     File(PersonagemService.pdmDirectory).mkdirs()
+    File(PersonagemService.pjDirectory).mkdirs()
     val monstro = escolherMonstro()
     println("Insira a quantidade que você deseja de monstros desse tipo: ")
     var quantidade = readLine()

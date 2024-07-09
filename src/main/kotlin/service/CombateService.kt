@@ -2,10 +2,6 @@ package com.coppolaop.service
 
 import com.coppolaop.entity.Monstro
 import com.coppolaop.entity.Personagem
-import com.coppolaop.entity.classes.Clerigo
-import com.coppolaop.entity.classes.Guerreiro
-import com.coppolaop.entity.classes.Ladino
-import com.coppolaop.entity.classes.Mago
 import com.coppolaop.entity.dtos.ResultadoCombate
 
 /**
@@ -18,13 +14,8 @@ class CombateService() {
     private var ordemIniciativa: MutableList<Personagem> = ArrayList()
     var pjsMortos: MutableList<Personagem> = ArrayList()
 
-    fun criarPJs() {
-        personagensDosJogadores = listOf(
-            Guerreiro("Guerreiro", 18, 21, 6, "1d8", 4, 0),
-            Mago("Mago", 12, 12, 10, 6, "1d6", 3, 2),
-            Ladino("Ladino", 16, 15, 6, "1d4", 4, 4),
-            Clerigo("Clérigo", 18, 18, 8, 6, "1d6", 2, 0, "1d8", 3)
-        )
+    fun adicionarPJs(personagens: List<Personagem>) {
+        personagensDosJogadores = personagens
     }
 
     fun ajustarNivelDosPJs() {

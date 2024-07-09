@@ -18,7 +18,7 @@ class SimuladorService(private var monstro: String, private val quantidade: Int)
     }
 
     init {
-        combateService.criarPJs()
+        combateService.adicionarPJs(personagemService.carregarAventureiros())
         val monstros: MutableList<Personagem> = ArrayList()
         for (i in 1..quantidade) {
             monstros.add(personagemService.lerMonstro(monstro))
@@ -44,7 +44,7 @@ class SimuladorService(private var monstro: String, private val quantidade: Int)
     }
 
     fun obterTaxasDeVitoriaPJ(amostragem: Int) {
-        println("Iniciando simulação de combate de um grupo padrão nivel $nivelDesejado contra ${this.quantidade} monstro(s) do tipo ${this.monstro}")
+        println("Iniciando simulação de combate de um grupo padrão nível $nivelDesejado contra ${this.quantidade} monstro(s) do tipo ${this.monstro}")
         val resultado = ResultadoSimulacao()
         val dezPorCentoDaAmostragem = amostragem / 10
         for (i in 1..10) {

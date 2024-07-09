@@ -51,6 +51,15 @@ class TestUtils {
             return Mago("Mago", 12, 12, 10, 6, "1d6", 3, 2)
         }
 
+        fun gerarGrupoPJ(): List<Personagem> {
+            return listOf(
+                gerarPJGuerreiro(),
+                gerarPJMago(),
+                gerarPJClerigo(),
+                gerarPJLadino()
+            )
+        }
+
         fun gerarMonstroComMuitoHP(): Monstro {
             return Monstro("BonecoDePalha", 0, 50, 0, 0, "1d1", 0, 0)
         }
