@@ -1,0 +1,9 @@
+{
+  "nome": "Guerreiro",
+  "ca": 16,
+  "hpMaximo": 10,
+  "acerto": 8,
+  "dadoDano": "1d8",
+  "modDano": 2,
+  "iniciativa": 0
+}

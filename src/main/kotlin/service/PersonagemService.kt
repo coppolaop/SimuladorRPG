@@ -48,10 +48,10 @@ class PersonagemService {
 
     fun carregarAventureiros(): List<Personagem> {
         val personagensBasicos = mutableListOf(
+            Clerigo("Clerigo", 18, 18, 8, 6, "1d6", 2, 0, "1d8", 3),
             Guerreiro("Guerreiro", 18, 21, 6, "1d8", 4, 0),
-            Mago("Mago", 12, 12, 10, 6, "1d6", 3, 2),
             Ladino("Ladino", 16, 15, 6, "1d4", 4, 4),
-            Clerigo("Clerigo", 18, 18, 8, 6, "1d6", 2, 0, "1d8", 3)
+            Mago("Mago", 12, 12, 10, 6, "1d6", 3, 2),
         )
         val personagens = mutableListOf<Personagem>()
 
@@ -60,7 +60,7 @@ class PersonagemService {
 
             try {
                 personagemArquivo = lerAventureiro(personagemBasico)
-            } catch (e: FileNotFoundException) {
+            } catch (_: FileNotFoundException) {
                 personagens.add(personagemBasico)
                 criarAventureiroBasico(personagemBasico)
                 continue
@@ -74,12 +74,11 @@ class PersonagemService {
     private fun criarAventureiroBasico(aventureiro: Personagem) {
         val caminho = "${pjDirectory}${aventureiro.nome.lowercase()}.json"
         criarArquivoPersonagem(aventureiro, caminho)
-        println("Arquivo criado: $caminho")
     }
 
     companion object {
-        val pdmDirectory = "resources/pdm/"
-        val pjDirectory = "resources/pj/"
+        var pdmDirectory = "resources/pdm/"
+        var pjDirectory = "resources/pj/"
 
         fun aumentarNivel(personagem: Personagem, nivelDesejado: Int) {
             val hpPorNivel = personagem.hpMaximo / 3
@@ -118,6 +117,7 @@ class PersonagemService {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
+            println("Arquivo criado: $caminho")
             return personagem.nome.lowercase()
         }
     }
